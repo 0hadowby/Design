@@ -40,12 +40,7 @@ class LLaVANextVideoRunner:
 
     @staticmethod
     def _guess_conv_mode(model_path: str) -> str:
-        lower = model_path.lower()
-        if "qwen" in lower:
-            return "qwen_1_5"
-        if "mistral" in lower:
-            return "mistral_direct"
-        return "vicuna_v1"
+        return "qwen_1_5"
 
     def load_model(self):
         try:
@@ -76,8 +71,8 @@ class LLaVANextVideoRunner:
             from llava.mm_utils import get_model_name_from_path, tokenizer_image_token
             from llava.model.builder import load_pretrained_model
 
-        model_name = get_model_name_from_path(self.model_path)
-        self.conv_mode = self._guess_conv_mode(self.model_path)
+        model_name = "llava_qwen"
+        self.conv_mode = "qwen_1_5"
 
         torch_dtype = torch.bfloat16 if self.device == "cuda" else torch.float32
         self.tokenizer, self.model, self.image_processor, _ = load_pretrained_model(
